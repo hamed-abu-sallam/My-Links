@@ -1,9 +1,11 @@
 const CACHE_NAME = 'my-links-v1';
 const urlsToCache = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
+  './',
+  './index.html',
+  './style.css',
+  './script.js',
+  './manifest.json',
+  './images/banner-linkedin.png',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
   'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2'
 ];

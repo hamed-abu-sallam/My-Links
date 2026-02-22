@@ -2,12 +2,12 @@
   "name": "My Links - Hamed Abu Sallam",
   "short_name": "My Links",
   "description": "Professional links and QR codes for Hamed Abu Sallam - Software Engineer",
-  "start_url": "/index.html",
+  "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f0a1a",
   "theme_color": "#6d28d9",
   "orientation": "portrait-primary",
-  "scope": "/",
+  "scope": "./",
   "icons": [
     {
       "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%236d28d9' width='192' height='192'/><text x='50%' y='50%' font-size='100' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>HS</text></svg>",
