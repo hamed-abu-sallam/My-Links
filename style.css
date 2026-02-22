@@ -11,12 +11,12 @@
     --bg-dark: #0f0a1a;
     --bg-darker: #06030d;
     --border-color: #1e1b3d;
-    --text-primary: #c9c5e0;
-    --text-secondary: #8b85a8;
-    --text-accent: #9f97d4;
+    --text-primary: #f4f4f8;
+    --text-secondary: #d6d2ea;
+    --text-accent: #dcd7ff;
     --accent-purple: #6d28d9;
     --accent-blue: #2563eb;
-    --glow-intensity: 0.15;
+    --glow-intensity: 0;
 }
 
 * {
@@ -722,4 +722,31 @@ body::before {
     to {
         opacity: 1;
     }
+}
+
+/* Reduce glow and shadow per user request */
+* {
+    text-shadow: none !important;
+    box-shadow: none !important;
+    filter: none !important;
+}
+
+/* Increase text contrast for readability */
+:root {
+    /* ensure primary text remains bright in case of overrides */
+    --text-primary: #ffffff;
+}
+
+/* Make link text and headings more visible */
+.link-text,
+.footer-content,
+.status-bar,
+.subtitle,
+.link-info h3 {
+    color: var(--text-primary) !important;
+}
+
+.profile-info h1,
+.section-title {
+    color: #ffffff !important;
 }
