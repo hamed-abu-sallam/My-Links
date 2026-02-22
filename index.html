@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#6d28d9">
+    <meta name="description" content="Professional links and QR codes for Hamed Abu Sallam - Software Engineer">
+    <title>Abo | Links & QR Codes</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect fill='%236d28d9' width='100' height='100'/><text x='50' y='50' font-size='60' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>HS</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect fill='%236d28d9' width='180' height='180'/><text x='90' y='90' font-size='100' font-weight='bold' fill='%23fff' text-anchor='middle' dominant-baseline='central'>HS</text></svg>">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div class="stars"></div>
+    
+    <div class="container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="header-content">
+                <img src="images/banner-linkedin.png" alt="Profile Banner" class="banner-image">
+                <div class="profile-info">
+                    <h1 class="glitch" data-text="Hamed Abu Sallam">Hamed Abu Sallam</h1>
+                    <p class="subtitle">Computer Software, Technology & Engineering</p>
+                    <div class="status-bar">
+                        <span class="status-item">
+                            <span class="status-dot"></span>
+                            System Online
+                        </span>
+                        <span class="divider">|</span>
+                        <span class="status-item">Security: ACTIVE</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Links Section with QR Codes -->
+        <section class="links-section">
+            <h2 class="section-title">
+                <i class="fas fa-link"></i> المسارات الآمنة (Secure Links)
+            </h2>
+            
+            <div class="links-grid">
+                <!-- Link 1: Email -->
+                <div class="link-card card-email">
+                    <div class="card-icon"><i class="fas fa-envelope"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-email" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy email" onclick="showLinkModal('hamedsallampro.1@gmail.com', 'Email')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>البريد الإلكتروني</h3>
+                        <a href="mailto:hamedsallampro.1@gmail.com" class="link-text">
+                            Gmail
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Link 2: Portfolio -->
+                <div class="link-card card-portfolio">
+                    <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-portfolio" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy portfolio link" onclick="showLinkModal('https://hamed-abu-sallam.github.io/Portofolio/', 'Portfolio')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>المحفظة</h3>
+                        <a href="https://hamed-abu-sallam.github.io/Portofolio/" target="_blank" rel="noopener noreferrer" class="link-text">
+                            Portfolio
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Link 3: LinkedIn -->
+                <div class="link-card card-linkedin">
+                    <div class="card-icon"><i class="fab fa-linkedin"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-linkedin" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy LinkedIn link" onclick="showLinkModal('https://www.linkedin.com/in/hamed-abu-sallam/', 'LinkedIn')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>LinkedIn</h3>
+                        <a href="https://www.linkedin.com/in/hamed-abu-sallam/" target="_blank" rel="noopener noreferrer" class="link-text">
+                            LinkedIn
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Link 4: GitHub -->
+                <div class="link-card card-github">
+                    <div class="card-icon"><i class="fab fa-github"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-github" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy GitHub link" onclick="showLinkModal('https://github.com/hamed-abu-sallam', 'GitHub')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>GitHub</h3>
+                        <a href="https://github.com/hamed-abu-sallam" target="_blank" rel="noopener noreferrer" class="link-text">
+                            GitHub
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Link 5: Behance -->
+                <div class="link-card card-behance">
+                    <div class="card-icon"><i class="fab fa-behance"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-behance" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy Behance link" onclick="showLinkModal('https://www.behance.net/hamed-abu-sallam', 'Behance')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>Behance</h3>
+                        <a href="https://www.behance.net/hamed-abu-sallam" target="_blank" rel="noopener noreferrer" class="link-text">
+                            Behance
+                        </a>
+                    </div>
+                </div>
+                <!-- Link 6: Google Drive -->
+                <div class="link-card card-drive">
+                    <div class="card-icon"><i class="fab fa-google-drive"></i></div>
+                    <div class="qr-container">
+                        <div id="qr-drive" class="qr-code"></div>
+                        <button type="button" class="copy-btn" title="Copy Drive link" onclick="showLinkModal('https://drive.google.com/drive/folders/1IqMWxo1SBkYo1D1g90VjjIRLrF1lDQE0?usp=sharing', 'Google Drive')">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </div>
+                    <div class="link-info">
+                        <h3>Google Drive</h3>
+                        <a href="https://drive.google.com/drive/folders/1IqMWxo1SBkYo1D1g90VjjIRLrF1lDQE0?usp=sharing" target="_blank" rel="noopener noreferrer" class="link-text">
+                            Drive
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <p>© 2026 Hamed Abu Sallam | Computer Software, Technology & Engineering</p>
+                <div class="footer-animation">
+                    <span class="pulse"></span>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Floating Elements -->
+    <div class="floating-code">
+        <span>&lt;/&gt;</span>
+    </div>
+    <div class="floating-lock">
+        <i class="fas fa-lock"></i>
+    </div>
+
+    <!-- Link Modal -->
+    <div id="linkModal" class="modal-overlay">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeLinkModal()">&times;</span>
+            <h2 id="modalTitle"></h2>
+            <div class="modal-body">
+                <div id="modalQR" class="modal-qr"></div>
+                <p id="modalLink" class="modal-link"></p>
+                <button class="modal-copy-btn" onclick="copyFromModal()">
+                    <i class="fas fa-copy"></i> نسخ الرابط
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
