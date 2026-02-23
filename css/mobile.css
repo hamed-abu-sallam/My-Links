@@ -1,0 +1,458 @@
+/* ============================================
+   MOBILE RESPONSIVE - تحسينات الموبايل
+   ============================================ */
+
+/* Base mobile styles */
+@media (max-width: 768px) {
+  /* Root sizing */
+  :root {
+    --base-font-size: 14px;
+  }
+
+  body {
+    padding: 10px;
+  }
+
+  /* Container adjustments */
+  .container {
+    padding: 12px;
+    max-width: 100%;
+  }
+
+  /* Header responsive */
+  .header {
+    margin-bottom: 20px;
+  }
+
+  .header-content {
+    gap: 12px;
+  }
+
+  .banner-image {
+    max-height: 150px;
+  }
+
+  h1.glitch {
+    font-size: 24px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+  }
+
+  /* Tab navigation mobile */
+  .tab-navigation {
+    margin: 15px 0 20px;
+    gap: 5px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 10px 16px;
+    font-size: 13px;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .tab-btn i {
+    display: none; /* Hide icons on mobile to save space */
+  }
+
+  /* Dashboard summary - card orientation */
+  .dashboard-summary {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin-bottom: 20px;
+  }
+
+  .summary-card {
+    padding: 16px;
+    gap: 10px;
+  }
+
+  .summary-icon {
+    font-size: 28px;
+    min-width: 40px;
+  }
+
+  .summary-content h3 {
+    font-size: 12px;
+    margin-bottom: 4px;
+  }
+
+  .summary-value {
+    font-size: 18px;
+  }
+
+  /* Form responsive */
+  .task-form {
+    padding: 16px;
+    margin-bottom: 20px;
+  }
+
+  .form-group {
+    margin-bottom: 12px;
+  }
+
+  .form-group label {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .form-group textarea {
+    font-size: 14px;
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  form button {
+    padding: 12px 20px;
+    font-size: 14px;
+    width: 100%;
+  }
+
+  /* Schedule periods responsive */
+  .schedule-container {
+    gap: 12px;
+  }
+
+  .period {
+    padding: 16px;
+  }
+
+  .period h3 {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .period-info {
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .period-tasks {
+    max-height: 200px;
+  }
+
+  .period-task {
+    padding: 10px;
+    font-size: 12px;
+    margin-bottom: 8px;
+  }
+
+  .task-time {
+    font-size: 11px;
+  }
+
+  /* Tasks list responsive */
+  .tasks-list {
+    gap: 10px;
+  }
+
+  .task-item {
+    padding: 12px;
+  }
+
+  .task-header {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .task-title {
+    font-size: 13px;
+  }
+
+  .task-meta {
+    font-size: 11px;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .task-meta span {
+    padding: 4px 8px;
+  }
+
+  .task-actions {
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 8px;
+  }
+
+  .task-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+
+  /* Calendar responsive */
+  .calendar-container {
+    padding: 12px;
+  }
+
+  .calendar-header {
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+
+  .calendar-header button {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  .month-title {
+    font-size: 16px;
+  }
+
+  .calendar-grid {
+    gap: 4px;
+  }
+
+  .calendar-day {
+    padding: 8px 4px;
+    font-size: 12px;
+  }
+
+  .calendar-day.has-tasks::after {
+    width: 4px;
+    height: 4px;
+  }
+
+  .calendar-day.today {
+    font-size: 13px;
+  }
+
+  /* Recommendations responsive */
+  .recommendations {
+    gap: 10px;
+  }
+
+  .recommendation-item {
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .recommendation-title {
+    font-size: 13px;
+    margin-bottom: 6px;
+  }
+
+  .recommendation-text {
+    font-size: 12px;
+  }
+
+  /* Modals responsive */
+  .modal {
+    padding: 12px;
+  }
+
+  .modal-content {
+    padding: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .modal-header h2 {
+    font-size: 18px;
+  }
+
+  .modal-body {
+    font-size: 13px;
+  }
+
+  /* Action buttons */
+  .action-buttons {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .action-btn {
+    padding: 10px 16px;
+    font-size: 12px;
+    flex: 1;
+    min-width: 120px;
+  }
+
+  /* Utilities responsive */
+  .section-title {
+    font-size: 18px;
+    margin-bottom: 16px;
+  }
+
+  .filter-group {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .filter-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+
+  /* Links grid responsive */
+  .links-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 12px;
+  }
+
+  .link-card {
+    padding: 12px;
+  }
+
+  .card-icon {
+    font-size: 28px;
+  }
+
+  .link-info h3 {
+    font-size: 13px;
+  }
+
+  .link-text {
+    font-size: 12px;
+  }
+}
+
+/* Small phones (320px - 480px) */
+@media (max-width: 480px) {
+  .container {
+    padding: 8px;
+  }
+
+  .dashboard-summary {
+    grid-template-columns: 1fr;
+  }
+
+  .summary-card {
+    padding: 12px;
+  }
+
+  .summary-icon {
+    font-size: 24px;
+    min-width: 35px;
+  }
+
+  .summary-value {
+    font-size: 16px;
+  }
+
+  .period {
+    padding: 12px;
+  }
+
+  .task-item {
+    padding: 10px;
+  }
+
+  .task-title {
+    font-size: 12px;
+  }
+
+  .schedule-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .links-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .action-btn {
+    width: 100%;
+  }
+
+  h1.glitch {
+    font-size: 18px;
+  }
+
+  .tab-btn {
+    padding: 8px 12px;
+    font-size: 12px;
+  }
+}
+
+/* Large tablets (1024px+) */
+@media (min-width: 1024px) {
+  .dashboard-summary {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .schedule-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .links-grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+}
+
+/* Touch-friendly adjustments */
+@supports (hover: hover) {
+  /* Only apply hover effects on non-touch devices */
+  @media (hover: hover) {
+    .summary-card:hover,
+    .task-item:hover,
+    .period:hover {
+      transform: translateY(-2px);
+    }
+  }
+}
+
+/* Improve touch targets */
+@media (max-width: 768px) {
+  button,
+  input[type="button"],
+  input[type="submit"],
+  .btn,
+  .task-btn {
+    min-height: 44px; /* iOS recommended touch target */
+    min-width: 44px;
+  }
+
+  .tab-btn,
+  .filter-btn {
+    min-height: 40px;
+  }
+
+  /* Remove hover states on mobile */
+  button:active,
+  input[type="button"]:active,
+  .btn:active {
+    opacity: 0.8;
+  }
+}
+
+/* Reduce animations on low-end devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .modal-content {
+    background: var(--bg-secondary, #1a1a2e);
+    color: var(--text-primary, #fff);
+  }
+}
+
+/* Print styles for mobile */
+@media print {
+  .tab-navigation,
+  .task-actions,
+  form {
+    display: none;
+  }
+
+  .task-item,
+  .period {
+    page-break-inside: avoid;
+  }
+}

@@ -1,12 +1,22 @@
 // Service Worker Registration
 if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js')
-        .then(registration => {
-            console.log('Service Worker registered successfully:', registration);
-        })
-        .catch(error => {
-            console.log('Service Worker registration failed:', error);
-        });
+    // Check if we're running on a secure context (https, localhost, 127.0.0.1)
+    const isSecureContext = window.isSecureContext || 
+                           location.protocol === 'https:' ||
+                           location.hostname === 'localhost' ||
+                           location.hostname === '127.0.0.1';
+    
+    if (isSecureContext) {
+        navigator.serviceWorker.register('./service-worker.js')
+            .then(registration => {
+                console.log('✓ Service Worker registered successfully');
+            })
+            .catch(error => {
+                console.warn('⚠ Service Worker registration failed (app will work offline):', error.message);
+            });
+    } else {
+        console.warn('⚠ Service Worker requires secure context (https or localhost). Run with a local server for offline support.');
+    }
 }
 
 // QR Code Generation using QR Server API
@@ -14,7 +24,28 @@ function initQRCodes() {
     generateQRCodes();
 }
 
-document.addEventListener('DOMContentLoaded', initQRCodes);
+// Initialize form defaults
+function initFormDefaults() {
+    const today = new Date().toISOString().split('T')[0];
+    const dateInput = document.getElementById('taskDate');
+    if (dateInput) {
+        dateInput.value = today;
+    }
+
+    // Set current time as default
+    const now = new Date();
+    const hours = String(now.getHours()).padStart(2, '0');
+    const minutes = String(now.getMinutes()).padStart(2, '0');
+    const timeInput = document.getElementById('taskTime');
+    if (timeInput) {
+        timeInput.value = `${hours}:${minutes}`;
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initQRCodes();
+    initFormDefaults();
+});
 
 function generateQRCodes() {
     const links = [
@@ -96,6 +127,11 @@ function showToast(message, type, source) {
             toast.remove();
         }, 300);
     }, 2000);
+}
+
+// Notification function (alias for showToast)
+function showNotification(message, type = 'info', source) {
+    return showToast(message, type, source);
 }
 
 // Add toast styles dynamically
@@ -373,3 +409,268 @@ document.addEventListener('click', function(event) {
         closeLinkModal();
     }
 });
+// =====================================================
+// 🤖 AUTOMATION SYSTEM - نظام الأتمتة الذكي
+// =====================================================
+
+// 1️⃣ تشغيل الأتمتة عند تحميل الصفحة
+document.addEventListener('DOMContentLoaded', () => {
+    setTimeout(() => {
+        console.log('🤖 [AUTOMATION] بدء نظام الأتمتة...');
+        
+        // ✅ فحص تغيير الشهر وتجديد المهام
+        if (typeof storage !== 'undefined' && typeof storage.autoRenewMonthlyTasks === 'function') {
+            storage.autoRenewMonthlyTasks();
+            console.log('✅ [AUTO] فحص تغيير الشهر تم');
+        }
+
+        // ✅ بدء خدمة الإخطارات
+        if (typeof notificationsManager !== 'undefined' && typeof notificationsManager.start === 'function') {
+            notificationsManager.start();
+            console.log('✅ [AUTO] خدمة الإخطارات بدأت');
+        }
+
+        // ✅ تحميل المهام المسبقة إذا كانت قاعدة البيانات فارغة
+        if (typeof taskImporter !== 'undefined' && typeof taskImporter.autoLoadIfEmpty === 'function') {
+            taskImporter.autoLoadIfEmpty();
+            console.log('✅ [AUTO] فحص التحميل التلقائي تم');
+        }
+
+        // ✅ فحص إنهاء الأيام السابقة
+        autoCompletePassedDays();
+
+        console.log('🎯 [AUTOMATION] جميع أنظمة الأتمتة جاهزة!');
+    }, 2000); // انتظر قليلاً لتحميل كل شيء
+});
+
+// دالة مساعدة: إنهاء مهام الأيام السابقة
+function autoCompletePassedDays() {
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        // Check automation settings
+        const settings = (typeof storage !== 'undefined') ? storage.getSettings() : {};
+        const automation = (settings && settings.automation) ? settings.automation : {};
+        if (!automation.autoCompletePastDays) return;
+
+        if (typeof storage !== 'undefined') {
+            const tasks = storage.getAllTasks();
+            let completedCount = 0;
+
+            tasks.forEach(task => {
+                // إذا كان تاريخ المهمة أقدم من اليوم الحالي وحالتها pending
+                if (task.dueDate < today && task.status !== 'completed') {
+                    // تحديث حالة المهمة إلى completed
+                    storage.updateTask(task.id, {
+                        status: 'completed',
+                        completedAt: new Date().toISOString()
+                    });
+                    completedCount++;
+                }
+            });
+
+            if (completedCount > 0) {
+                console.log(`✅ [AUTO-COMPLETE] تم إنهاء ${completedCount} مهمة من الأيام السابقة`);
+            }
+        }
+    } catch (error) {
+        console.error('[AUTO-COMPLETE-INIT] خطأ:', error);
+    }
+}
+
+// 2️⃣ حفظ تلقائي كل 5 دقائق
+setInterval(() => {
+    try {
+        if (typeof storage !== 'undefined') {
+            const data = {
+                tasks: storage.getAllTasks(),
+                settings: storage.getSettings(),
+                timestamp: new Date().toISOString()
+            };
+            // نسخة احتياطية إضافية
+            const backupKey = 'auto_backup_' + Date.now();
+            localStorage.setItem(backupKey, JSON.stringify(data));
+            console.log('💾 [AUTO-SAVE] حفظ تلقائي تم');
+        }
+    } catch (error) {
+        console.error('[AUTO-SAVE] خطأ:', error);
+    }
+}, 300000); // 5 دقائق
+
+// 3️⃣ تنظيف دوري كل ساعة
+setInterval(() => {
+    try {
+        const keys = Object.keys(localStorage);
+        const now = Date.now();
+        let deletedCount = 0;
+
+        keys.forEach(key => {
+            if (key.startsWith('auto_backup_')) {
+                const timestamp = parseInt(key.replace('auto_backup_', ''));
+                const oneWeekAgo = now - (7 * 24 * 60 * 60 * 1000);
+                if (timestamp < oneWeekAgo) {
+                    localStorage.removeItem(key);
+                    deletedCount++;
+                }
+            }
+        });
+
+        if (deletedCount > 0) {
+            console.log(`🧹 [AUTO-CLEANUP] تم حذف ${deletedCount} نسخة احتياطية قديمة`);
+        }
+    } catch (error) {
+        console.error('[AUTO-CLEANUP] خطأ:', error);
+    }
+}, 3600000); // ساعة واحدة
+
+// 4️⃣ فحص تغيير الشهر يومياً
+setInterval(() => {
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        const currentMonth = today.substring(0, 7);
+        const lastMonthCheck = localStorage.getItem('last_month_check');
+
+        if (lastMonthCheck !== currentMonth) {
+            console.log('📅 [AUTO-MONTH] اكتشاف شهر جديد!');
+            if (typeof storage !== 'undefined' && typeof storage.autoRenewMonthlyTasks === 'function') {
+                storage.autoRenewMonthlyTasks();
+                localStorage.setItem('last_month_check', currentMonth);
+                console.log('✅ [AUTO-MONTH] تم تجديد المهام المتكررة');
+                
+                // تحديث الواجهة
+                if (typeof uiManager !== 'undefined' && typeof uiManager.render === 'function') {
+                    uiManager.render();
+                }
+            }
+        }
+    } catch (error) {
+        console.error('[AUTO-MONTH] خطأ:', error);
+    }
+}, 86400000); // يوم واحد
+
+// 5️⃣ تحديث الإحصائيات كل دقيقة
+setInterval(() => {
+    try {
+        if (typeof tasksManager !== 'undefined' && typeof uiManager !== 'undefined') {
+            uiManager.renderDashboard();
+        }
+    } catch (error) {
+        console.error('[AUTO-UPDATE] خطأ:', error);
+    }
+}, 60000); // دقيقة واحدة
+
+// 6️⃣ أتمتة إنهاء الأيام - عندما ينتهي اليوم، اعتبر كل مهامه منجزة
+setInterval(() => {
+    try {
+        const today = new Date().toISOString().split('T')[0];
+        
+        if (typeof storage !== 'undefined') {
+            const settings = storage.getSettings();
+            const automation = (settings && settings.automation) ? settings.automation : {};
+            if (!automation.autoCompletePastDays) return; // respect user setting
+            const tasks = storage.getAllTasks();
+            const lastCheckKey = 'last_day_complete_check';
+            const lastCheck = localStorage.getItem(lastCheckKey);
+            
+            // تحقق فقط مرة واحدة في اليوم
+            if (lastCheck !== today) {
+                let completedCount = 0;
+
+                tasks.forEach(task => {
+                    // إذا كان تاريخ المهمة أقدم من اليوم الحالي وحالتها pending
+                    if (task.dueDate < today && task.status !== 'completed') {
+                        // تحديث حالة المهمة إلى completed
+                        storage.updateTask(task.id, {
+                            status: 'completed',
+                            completedAt: new Date().toISOString()
+                        });
+                        completedCount++;
+                    }
+                });
+
+                if (completedCount > 0) {
+                    console.log(`✅ [AUTO-COMPLETE] تم إنهاء ${completedCount} مهمة من الأيام السابقة`);
+                    localStorage.setItem(lastCheckKey, today);
+                    
+                    // تحديث الواجهة
+                    if (typeof uiManager !== 'undefined' && typeof uiManager.refresh === 'function') {
+                        uiManager.refresh();
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('[AUTO-COMPLETE] خطأ:', error);
+    }
+}, 60000); // كل دقيقة (لكنه يعمل مرة واحدة فقط في اليوم)
+
+// 7️⃣ أتمتة إنهاء المهام عند انتهاء وقتها وإنشاء متابعة تلقائية
+setInterval(() => {
+    try {
+        const now = new Date();
+        const settings = (typeof storage !== 'undefined') ? storage.getSettings() : {};
+        const automationSettings = (settings && settings.automation) ? settings.automation : {};
+
+        // Only run if feature enabled
+        if (!automationSettings.autoCompleteOnEndEnabled) return;
+
+        const tasks = (typeof storage !== 'undefined') ? storage.getAllTasks() : [];
+        tasks.forEach(task => {
+            try {
+                if (!task || task.status === 'completed' || task.status === 'cancelled') return;
+
+                // compute task end time: dueTime + duration (hours)
+                const durationHours = parseFloat(task.duration) || 1;
+                const taskStart = new Date(`${task.dueDate}T${task.dueTime}`);
+                if (isNaN(taskStart.getTime())) return;
+                const taskEnd = new Date(taskStart.getTime() + durationHours * 60 * 60 * 1000);
+
+                // If current time is past end time -> auto-complete
+                if (now >= taskEnd) {
+                    // only auto-complete if flag set on task or global enabled
+                    const taskFlag = task.autoCompleteOnEnd === true;
+                    if (automationSettings.autoCompleteOnEndEnabled || taskFlag) {
+                        storage.updateTask(task.id, { status: 'completed', completedAt: new Date().toISOString() });
+                        console.log(`✅ [AUTO-END] أكملت المهمة تلقائياً: ${task.title} (انتهى وقتها)`);
+
+                        // create follow-up if enabled
+                        const createFollowUp = (task.autoCreateNext === true) || automationSettings.autoCreateFollowUpEnabled;
+                        if (createFollowUp) {
+                            const offset = (typeof task.followUpOffsetDays === 'number') ? task.followUpOffsetDays : (automationSettings.followUpDefaultOffsetDays || 1);
+                            const nextDate = new Date(taskStart);
+                            nextDate.setDate(nextDate.getDate() + offset);
+                            const newTaskData = {
+                                title: `متابعة: ${task.title}`,
+                                description: task.description || '',
+                                category: task.category || 'project',
+                                priority: task.priority || 'medium',
+                                dueDate: nextDate.toISOString().split('T')[0],
+                                dueTime: task.dueTime || '09:00',
+                                duration: task.duration || 1,
+                                status: 'pending',
+                                recurring: false,
+                                createdAt: new Date().toISOString()
+                            };
+
+                            // Use tasksManager to create so listeners update
+                            if (typeof tasksManager !== 'undefined' && typeof tasksManager.createTask === 'function') {
+                                tasksManager.createTask(newTaskData);
+                                console.log(`➕ [AUTO-FOLLOWUP] تمت إضافة مهمة متابعة: ${newTaskData.title} في ${newTaskData.dueDate}`);
+                            } else if (typeof storage !== 'undefined' && typeof storage.addTask === 'function') {
+                                storage.addTask(newTaskData);
+                            }
+                        }
+                    }
+                }
+            } catch (innerErr) {
+                console.error('[AUTO-END] خطأ في معالجة مهمة:', innerErr);
+            }
+        });
+
+        // refresh UI once per run
+        if (typeof uiManager !== 'undefined' && typeof uiManager.refresh === 'function') uiManager.refresh();
+    } catch (error) {
+        console.error('[AUTO-END] خطأ عام:', error);
+    }
+}, 60000); // تفحص كل دقيقة
+
+console.log('✅ نظام الأتمتة مجهز للتشغيل!');
